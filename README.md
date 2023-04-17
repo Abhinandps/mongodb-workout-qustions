@@ -25,11 +25,25 @@
     drop collection -> db.collection_name.drop()
 
 # DOCUMENTS
-    INSERT Document -> db.collection_name.insert()
+
+    FIND document -> db.collection_name.find()
+    FINDONE document -> db.collection_name.findOne()
+
+    Projection
+    Both find methods accept a second parameter called projection.
+
+    This parameter is an object that describes which fields to include in the results.
+
+
+    ' Notice that the _id field is also included. This field is always included unless specifically excluded. '
+
+    ' We use a 1 to include a field and 0 to exclude a field. '
+
+    INSERT Document -> db.collection_name.insertOne({})
 
     DISPLAY the document - > db.collection_name.find().pretty()
 
-    INSERT MULTIPLE Documents -> db.collection_name.insert([{},{},{}])
+    INSERT MULTIPLE Documents -> db.collection_name.insertMany([{},{},{}])
 
     UPDATE document -> db.collection_name.update({select_key:value},{$set:{select_key:updated_value}})
 
@@ -65,6 +79,7 @@
     })
 
 
+
     6. $in -> db.collection_name.find({
         select_key : { $in : [value1, value2,...] }
     })
@@ -95,8 +110,17 @@
         ]}
     })
 
+# EVALUATION
 
-    
+    1. $regex -> db.collection.find({name: {$regex: /John/i}});
+
+    2. $text -> db.collection.find({$text: {$search: "apple"}});
+
+
+    3. $where -> db.collection.find({$where: "this.age > 18 && this.gender === 'male'"});
+
+
+
 
 
 
