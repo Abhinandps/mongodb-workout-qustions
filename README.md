@@ -388,6 +388,86 @@ $   {
 
 
 
+# Qustions
+$Collection_name : workouts
+
+    1. Find all documents where the name is "John Doe".
+    2. Retrieve all documents where the age is greater than 25.
+    3. Get all documents where the zip code is "12345".
+    4. Find all documents where the second score in the "scores" array is greater than or equal to 80.
+    5. Retrieve all documents where the "is_active" field is true.
+    6. Get all documents where the "created_at" field is greater than or equal to August 1st, 2022.
+    7. Find all documents where the state is "CA" and the age is less than 30.\
+
+    8. Retrieve all documents where the email address ends with "@example.com".
+        - db.workouts.find({ "email": { $regex: /@example\.com$/ } })
+
+   9. Get all documents where the third score in the "scores" array is less than 90.
+
+   10. Find all documents where the street address contains the word "Main".
+----
+   11. Find the average score for all students in the collection:
+
+   db.workouts.aggregate([{ $unwind: "$scores" }, { $group: { _id: null, avg: { $avg: "$scores" } } }])
+
+
+   12. Find the total number of students by state:
+
+   db.workouts.aggregate([
+... {$group: {_id : "$address.state", count: {$sum: 1}}}
+
+   13. Find the top 3 students by highest score:
+
+    db.workouts.aggregate([ {$unwind: "$scores" }, {$sort: {"scores":-1}}, {$limit: 3}])
+
+
+    14. Find all documents where the student's age is between 20 and 30:
+
+    15. Find the total number of documents in the collection:
+
+    16. Find all documents where the student's name contains the word "Doe" and the student is active:
+
+
+    17. Find the top 2 cities with the highest number of active users.
+
+    db.workouts.aggregate([
+... {$match:{is_active:true}},
+... {$group: { _id: '$address.city', count: {$sum:1} } },
+... {$sort: {count: -1}},
+... {$limit: 2}
+... ])
+[ { _id: 'Anycity', count: 1 }, { _id: 'Anytown', count: 1 } ]
+
+
+    18. Group the users by their state and find the average score of users in each state for the scores above 80.
+
+    db.workouts.aggregate([
+... {$unwind: '$scores'},
+... {$match: { scores : {$gt:80} }},
+... {$group: {_id: '$address.state', avgScores:{$avg: '$scores'}}}
+... ])
+
+
+    19. Find the user with the highest score in their first attempt (first score in the scores array).
+    
+     db.workouts.aggregate([
+... {$project: { name:1,_id:0, first_score:{ $arrayElemAt:['$scores',0] } }},
+... {$sort: { first_score: -1 }},
+... {$limit: 1}
+... ])
+[ { name: 'Jane Smith', first_score: 90 } ]
+
+    20. 
+
+
+
+
+
+
+
+
+
+
 
 
 
