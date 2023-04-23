@@ -1,0 +1,51 @@
+[
+    {
+        "_id": 1,
+        "product_name": "Hp 14qcs0029tu",
+        "description": "HP laptop with 8GB RAM, 256GB SSD",
+        "price": 35000,
+        "category": "Laptop"
+    },
+    {
+        "_id": 2,
+        "product_name": "Apple iPhone 12 Pro",
+        "description": "Apple iPhone with 128GB storage, 6.1-inch Super Retina XDR display, A14 Bionic chip, Triple-camera system, Ceramic Shield front cover, iOS 14",
+        "price": 99900,
+        "category": "Mobile Phones"
+    },
+    {
+        "_id": 3,
+        "product_name": "Samsung 55-inch 4K Smart TV",
+        "description": "Samsung 55-inch 4K UHD Smart TV with HDR, Crystal Processor 4K, Motion Xcelerator Turbo+, Multiple Voice Assistants, Built-in AirPlay 2",
+        "price": 59999,
+        "category": "TV"
+    },
+    {
+        "_id": 4,
+        "product_name": "Sony WH-1000XM4 Wireless Noise Cancelling Headphones",
+        "description": "Sony WH-1000XM4 Wireless Noise Cancelling Headphones with 30 hours battery life, LDAC, Multipoint Connection, Adaptive Sound Control, Touch Sensor controls",
+        "price": 27990,
+        "category": "Headphones"
+    },
+    {
+        "_id": 5,
+        "product_name": "Samsung Galaxy S21",
+        "description": "Samsung Galaxy S21 5G with 6.2-inch Dynamic AMOLED display, Exynos 2100 chipset, 8GB RAM, 128GB storage, Triple-camera system, 4000mAh battery, Android 11",
+        "price": 69999,
+        "category": "Mobile Phones"
+    },
+    {
+        "_id": 6,
+        "product_name": "Samsung Galaxy S22 Ultra",
+        "description": "Samsung Galaxy S21 5G with 6.2-inch Dynamic AMOLED display, Exynos 2100 chipset, 8GB RAM, 128GB storage, Triple-camera system, 4000mAh battery, Android 11",
+        "price": 69999,
+        "category": "Mobile Phones"
+    },
+    {
+        "_id": 7,
+        "product_name": "Samsung Galaxy M30",
+        "description": "Samsung Galaxy S30 5G with 6.2-inch Dynamic AMOLED display, Exynos 2100 chipset, 8GB RAM, 128GB storage, Triple-camera system, 4000mAh battery, Android 11",
+        "price": 29999,
+        "category": "Mobile Phones"
+    }
+]
