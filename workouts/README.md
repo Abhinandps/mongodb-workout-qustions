@@ -173,4 +173,175 @@ db.marketting.find().limit(1).skip(1)
 ![Alt text](image-8.png)
 
 
-3. 
+3. Write a query to find out the average spent amount of customers who received more than 10 catalogs
+
+
+db.marketting.aggregate([
+  {
+    $match: {
+      Catalogs: { $gte: 4 }
+    }
+  },
+{
+    $group: {
+      _id: null,
+      avgAmountSpent: { $avg: "$AmountSpent" } // Calculate average spent amount
+    }
+  }
+]);
+
+![Alt text](image-9.png)
+
+
+4. Write a query to calculate the average salary and the total spent amount for customers who have at least 1 child
+
+db.marketting.aggregate([
+  {
+    $match: {
+      Children: { $gte: 1 } 
+    }
+  },
+  {
+    $group: {
+      _id: null,
+      avgSalary: { $avg: "$Salary" }, 
+      totalAmountSpent: { $sum: "$AmountSpent" } 
+    }
+  }
+]);
+
+![Alt text](image-10.png)
+
+
+-------------------------------------------------------------
+
+
+collection name : movies
+
+``````
+ {"_id": 0,title: "Movie A",  year: 2010, director: "D1", actors: ["A1","A2"] }
+      ,{"_id": 1,title: "Movie B",  year: 2010, director: "D1", actors: ["A1","A5","A6"]}
+      ,{"_id": 2,title: "Movie C",  year: 2010, director: "D2", actors: ["A4"]}
+      ,{"_id": 3,title: "Movie D",  year: 2012, director: "D3", actors: ["A7"]}
+      ,{"_id": 4,title: "Movie E",  year: 2015, director: "D3", actors: ["A7"]}
+``````
+
+
+
+1. Write a query to campaign documents and return all movie details when the same directors 
+
+
+
+```javascript
+db.movies.aggregate([
+  {
+    $group: {
+      _id: "$director",
+      movies: { $push: "$$ROOT" }
+    }
+  }
+]);
+```
+
+![Alt text](image-11.png)
+
+
+--------------------------------
+
+```
+Collection : orders
+   
+[{ "_id" : 1, "item" : "almonds", "price" : 12, "quantity" : 2 },
+  { "_id" : 2, "item" : "pecans", "price" : 20, "quantity" : 1 },
+
+  { "_id" : 3  }]
+
+Collection : inventory
+
+[{ "_id" : 2, "sku" : "bread", "description": "product 2", "instock" : 80 },
+  { "_id" : 3, "sku" : "cashews", "description": "product 3", "instock" : 60 },
+ { "_id" : 4, "sku" : "pecans", "description": "product 4", "instock" : 70 },
+{ "_id" : 5, "sku": null, "description": "Incomplete" },
+{ "_id" : 6 }]
+
+```
+
+1. Write a query to show the item, price, quantity, instock from each product from the above collection.
+
+````javascript 
+db.orders.aggregate([
+{
+$lookup: {
+from: "inventory",
+localField: "sku",
+foreignField: "item",
+as:"inventoryDetails"
+	}
+},
+{
+$unwind:"$inventoryDetails"
+},
+{
+	$project:{
+_id:0,
+item: "$inventoryDetails.sku"	,
+price:1,
+quantity:1,
+inStock:"$inventoryDetails.instock"
+	}
+}
+])
+````
+
+![Alt text](image-12.png)
+
+
+--------------------------------------------------------------------------
+
+```
+Collection: classes 
+
+[
+ { _id: 1, title: "Reading is ...", enrollmentlist: [ "giraffe2", "pandabear", "artie" ], days: ["M", "W", "F"] },
+{ _id: 2, title: "But Writing ...", enrollmentlist: [ "giraffe1", "artie" ], days: ["T", "F"] }
+]
+
+Collection: members
+
+
+{ _id: 1, name: "artie", joined: new Date("2016-05-01"), status: "A" },
+ { _id: 2, name: "giraffe", joined: new Date("2017-05-01"), status: "D" },
+{ _id: 3, name: "giraffe1", joined: new Date("2017-10-01"), status: "A" },
+  { _id: 4, name: "panda", joined: new Date("2018-10-11"), status: "A" },
+ { _id: 5, name: "pandabear", joined: new Date("2018-12-01"), status: "A" },
+ { _id: 6, name: "giraffe2", joined: new Date("2018-12-01"), status: "D" }
+
+
+```
+
+1. Write a query to show the document when matching all data from the enrollment list in the classes collection to the name of the member collection? 
+
+
+``` javascript 
+
+db.classes.aggregate([
+  {
+    $lookup: {
+      from: "members",
+      localField: "name",
+      foreignField: "entrollmentlist",
+      as: "enrolledMembers"
+    }
+  },
+  {
+    $match: {
+      $expr: {
+        $eq: ["$enrollmentlist", "$enrolledMembers.name"]
+      }
+    }
+  }
+]);
+```
+
+
+
