@@ -1,5 +1,6 @@
 
 
+
 # Complete MongoDB Study Material
 
     #SQL                    #MongoDB
@@ -129,7 +130,29 @@
     2. $text -> db.collection.find({$text: {$search: "apple"}});
 
 
+
+Key Differences:
+
+Purpose and Use Cases:
+
+$regex: Used for pattern matching within a specific field.
+$text: Used for efficient full-text searches across text-indexed fields.
+Performance:
+
+$regex: Can be slower for large collections and complex patterns.
+$text: Optimized for performance in full-text searches, especially on text-indexed fields.
+Indexing:
+
+$regex: Can use regular indexes on the field being searched.
+$text: Requires a special text index for efficient operation.
+Search Query:
+
+$regex: Searches based on a specific regular expression pattern.
+$text: Searches based on natural language text queries.
+
     3. $where -> db.collection.find({$where: "this.age > 18 && this.gender === 'male'"});
+
+
 
 # Update Field Operator
 
@@ -142,6 +165,8 @@
     4. $unset -> db.collection.updateMany({},{$unset: {"oldName":""}})
 
     5. $currentDate
+
+
 
 # Update Arrays
 
@@ -457,7 +482,14 @@ $Collection_name : workouts
 ... ])
 [ { name: 'Jane Smith', first_score: 90 } ]
 
-    20. 
+
+
+
+
+
+
+
+
 
 
 
